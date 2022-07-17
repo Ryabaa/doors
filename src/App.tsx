@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import GlobalStyles from "./styles/global";
@@ -14,25 +14,44 @@ const StyledApp = styled.div`
     background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%), no-repeat;
 `;
 
-const initialDoors = [1, 2, 3];
+interface IDoors {
+    id: number;
+    deadly: boolean;
+    [key: string]: any;
+}
+
 const initialModalActive = false;
+const initialCorrectDoor = null;
+const initialDoors = [
+    { id: 1, deadly: false },
+    { id: 2, deadly: false },
+    { id: 3, deadly: false },
+];
 
 const App: React.FC = () => {
-    const [modalActive, setModalActive] = useState(initialModalActive);
-    const [doors, setDoors] = useState(initialDoors);
+    const [modalActive, setModalActive] = useState<boolean>(initialModalActive);
+    const [doors, setDoors] = useState<IDoors[]>(initialDoors);
 
-    const changeModalActive = () => {
-        setModalActive(!modalActive);
+    const openModal = (openedDoorId: number) => {
+        console.log(openedDoorId);
     };
+
+    const updateApp = () => {
+        setModalActive(false);
+    };
+
+    useEffect(() => {
+        console.log(1);
+    }, []);
 
     return (
         <>
             <GlobalStyles />
             <StyledApp>
                 {doors.map((door, doorIndex) => (
-                    <Door key={doorIndex} door={door} changeModalActive={changeModalActive} />
+                    <Door key={doorIndex} door={door} openModal={openModal} />
                 ))}
-                {modalActive && <Modal />}
+                {modalActive && <Modal doors={doors} />}
             </StyledApp>
         </>
     );

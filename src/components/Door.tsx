@@ -1,11 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-interface IDoorProps {
-    door: number;
-    changeModalActive: () => void;
-}
-
 const StyledDoor = styled.button`
     background: #00012ff;
     width: 100px;
@@ -14,13 +9,20 @@ const StyledDoor = styled.button`
     cursor: pointer;
 `;
 
-const Door: React.FC<IDoorProps> = ({ door, changeModalActive }) => {
+interface IDoorProps {
+    door: {
+        id: number;
+        deadly: boolean;
+    };
+    openModal: any;
+}
+
+const Door: React.FC<IDoorProps> = ({ door, openModal }) => {
     const handleClickDoor = () => {
-        console.log(door);
-        changeModalActive();
+        openModal(door.id);
     };
 
-    return <StyledDoor onClick={handleClickDoor}>{door}</StyledDoor>;
+    return <StyledDoor onClick={handleClickDoor}>{door.id}</StyledDoor>;
 };
 
 export default Door;
