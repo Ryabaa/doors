@@ -10,19 +10,16 @@ const StyledDoor = styled.button`
 `;
 
 interface IDoorProps {
-    door: {
-        id: number;
-        deadly: boolean;
-    };
-    openModal: any;
+    door: number;
+    editDoors: any;
 }
 
-const Door: React.FC<IDoorProps> = ({ door, openModal }) => {
+const Door: React.FC<IDoorProps> = ({ door, editDoors }) => {
     const handleClickDoor = () => {
-        openModal(door.id);
+        editDoors(door);
     };
 
-    return <StyledDoor onClick={handleClickDoor}>{door.id}</StyledDoor>;
+    return <StyledDoor onClick={handleClickDoor}>{door}</StyledDoor>;
 };
 
 export default Door;

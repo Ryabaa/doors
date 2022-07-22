@@ -5,6 +5,8 @@ import GlobalStyles from "./styles/global";
 import Door from "./components/Door";
 import Modal from "./components/Modal";
 
+import { getRandom, getRandoms } from "./utils/getRandom";
+
 const StyledApp = styled.div`
     height: 100vh;
     display: flex;
@@ -14,44 +16,45 @@ const StyledApp = styled.div`
     background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%), no-repeat;
 `;
 
-interface IDoors {
-    id: number;
-    deadly: boolean;
-    [key: string]: any;
+interface IDoorsInfo {
+    selected: number | null;
+    correct: number;
 }
 
 const initialModalActive = false;
-const initialCorrectDoor = null;
-const initialDoors = [
-    { id: 1, deadly: false },
-    { id: 2, deadly: false },
-    { id: 3, deadly: false },
-];
+const initialDoors = [1, 2, 3];
+const initialDoorsInfo = {
+    selected: null,
+    correct: getRandom(initialDoors.length),
+};
 
 const App: React.FC = () => {
     const [modalActive, setModalActive] = useState<boolean>(initialModalActive);
-    const [doors, setDoors] = useState<IDoors[]>(initialDoors);
+    const [doorsInfo, setDoorsInfo] = useState<IDoorsInfo>(initialDoorsInfo);
+    const [doors, setDoors] = useState<number[]>(initialDoors);
+    const [offerDoor, setOfferDoors] = useState<number>(getRandoms(doors.length, [doorsInfo.correct]));
 
-    const openModal = (openedDoorId: number) => {
-        console.log(openedDoorId);
+    const editDoors = (selectedDoor: number) => {
+        setDoorsInfo({ ...doorsInfo, selected: selectedDoor });
+        setModalActive(true);
     };
 
     const updateApp = () => {
         setModalActive(false);
     };
 
-    useEffect(() => {
+    /*     useEffect(() => {
         console.log(1);
-    }, []);
+    }, []); */
 
     return (
         <>
             <GlobalStyles />
             <StyledApp>
                 {doors.map((door, doorIndex) => (
-                    <Door key={doorIndex} door={door} openModal={openModal} />
+                    <Door key={doorIndex} door={door} editDoors={editDoors} />
                 ))}
-                {modalActive && <Modal doors={doors} />}
+                {modalActive && <Modal doorsInfo={doorsInfo} />}
             </StyledApp>
         </>
     );

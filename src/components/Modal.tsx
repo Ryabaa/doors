@@ -30,26 +30,34 @@ const ModalButton = styled.button`
     height: 30px;
 `;
 
-interface IDoors {
-    id: number;
-    deadly: boolean;
-    [key: string]: any;
+interface IDoorsInfo {
+    selected: number | null;
+    correct: number;
 }
 
 interface IModalProps {
-    doors: IDoors[];
+    doorsInfo: IDoorsInfo;
 }
 
-const Modal: React.FC<IModalProps> = ({ doors }) => {
+const Modal: React.FC<IModalProps> = ({ doorsInfo }) => {
+    const { selected, correct } = doorsInfo;
+
+    const handleChangeChoice = (choice: boolean) => {
+        if (choice) {
+        }
+        if (selected !== correct) {
+        }
+    };
+
     return (
         <ModalWrapper>
             <StyledModal>
-                <p>At door {3} you would died</p>
+                <p>At door {correct} you would died</p>
                 <p>
-                    Do you want to change door {2} to door {1}?
+                    Do you want to change door {selected} to door {correct}?
                 </p>
-                <ModalButton>Yes</ModalButton>
-                <ModalButton>No</ModalButton>
+                <ModalButton onClick={() => handleChangeChoice(true)}>Yes</ModalButton>
+                <ModalButton onClick={() => handleChangeChoice(false)}>No</ModalButton>
             </StyledModal>
         </ModalWrapper>
     );
