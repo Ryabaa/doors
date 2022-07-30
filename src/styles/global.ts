@@ -4,8 +4,8 @@ export default createGlobalStyle`
 * {
     user-select: none;
     scroll-behavior: smooth;
-    font-family: Arial;
-    font-size: 12px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 14px;
     font-weight: normal;
     text-decoration: none;
     box-sizing: border-box;

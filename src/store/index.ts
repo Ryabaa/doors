@@ -1,7 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import gameReducer from "./gameSlice";
+import doorsReducer from "./doorsSlice";
+import statsReducer from "./statsSlice";
 
 const store = configureStore({
-    reducer: {},
+    reducer: {
+        game: gameReducer,
+        doors: doorsReducer,
+        stats: statsReducer,
+    },
 });
 
 export default store;
