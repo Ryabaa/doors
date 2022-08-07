@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import gameReducer from "./gameSlice";
-import doorsReducer from "./doorsSlice";
-import statsReducer from "./statsSlice";
+import gameStateReducer from "./gameState/reducer";
+import statsReducer from "./stats/reducer";
+import doorsReducer from "./doors/reducer";
 
 const store = configureStore({
     reducer: {
-        game: gameReducer,
-        doors: doorsReducer,
+        gameState: gameStateReducer,
         stats: statsReducer,
+        doors: doorsReducer,
     },
 });
 

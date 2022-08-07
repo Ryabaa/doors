@@ -7,12 +7,12 @@ import Wrapper from "./styles/wrapper";
 
 import Intro from "./components/Intro";
 import Game from "./components/Game";
-import Question from "./components/Question";
+import Suggestion from "./components/Suggestion";
 import End from "./components/End";
 import Stats from "./components/Stats";
 
 const App: React.FC = () => {
-    const gameState = useAppSelector((state) => state.game.gameState);
+    const gameState = useAppSelector((state) => state.gameState);
 
     return (
         <>
@@ -21,7 +21,7 @@ const App: React.FC = () => {
                 {gameState !== "intro" && <Stats />}
                 {gameState === "intro" && <Intro />}
                 {gameState === "game" && <Game />}
-                {gameState === "question" && <Question />}
+                {gameState === "suggestion" && <Suggestion />}
                 {gameState === "end" && <End />}
             </Wrapper>
         </>
