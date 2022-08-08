@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { setSelected } from "../store/doors/actions";
-import { setGameState } from "../store/gameState/actions";
+import { clickDoor } from "../store/doors/actions";
+import { suggestChange } from "../store/gameState/actions";
 
 import StyledDoor from "../styles/door";
 
@@ -17,8 +17,8 @@ const Door: React.FC<IDoorProps> = ({ number }) => {
     const text = number === correct ? "win" : "death";
 
     const handleSelectDoor = () => {
-        dispatch(setSelected(number));
-        dispatch(setGameState("suggestion"));
+        dispatch(clickDoor(number));
+        dispatch(suggestChange());
     };
 
     const doorClicked = gameState === "game" ? true : false;

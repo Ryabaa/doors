@@ -1,12 +1,12 @@
 import React from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { setGameState } from "../store/gameState/actions";
-import { setSelected } from "../store/doors/actions";
-import { setStats } from "../store/stats/actions";
+import { endGame } from "../store/gameState/actions";
+import { changeDoor } from "../store/doors/actions";
 
 import Container from "../styles/container";
 import Button from "../styles/button";
+import shuffleArray from "../utils/shuffleArray";
 
 const Modal: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -14,8 +14,9 @@ const Modal: React.FC = () => {
     const doors = useAppSelector((state) => state.doors.numbers);
     const { selected, correct } = useAppSelector((state) => state.doors);
 
-    const deathDoor = doors.find((number) => number !== selected && number !== correct);
-    const suggestedDoor = doors.find((number) => number !== selected && number !== deathDoor);
+    const shuffleDoors = shuffleArray([...doors]);
+    const deathDoor = shuffleDoors.find((number) => number !== selected && number !== correct);
+    const suggestedDoor = shuffleDoors.find((number) => number !== selected && number !== deathDoor);
 
     const handleChangeDoor = (choice: boolean) => {
         const newSelected = choice ? suggestedDoor : selected;
@@ -26,9 +27,9 @@ const Modal: React.FC = () => {
         } else {
             statsElement.wins = statsElement.wins + 1;
         }
-        dispatch(setStats({ ...stats, [elementName]: statsElement }));
-        dispatch(setSelected(newSelected!));
-        dispatch(setGameState("end"));
+        const newStats = { ...stats, [elementName]: statsElement };
+        dispatch(changeDoor({ stats: newStats, selected: newSelected }));
+        dispatch(endGame());
     };
 
     return (

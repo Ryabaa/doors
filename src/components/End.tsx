@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { setGameState } from "../store/gameState/actions";
+import { startGame } from "../store/gameState/actions";
 
 import Container from "../styles/container";
 import Button from "../styles/button";
@@ -16,7 +16,7 @@ const Modal: React.FC = () => {
     const { correct, selected } = useAppSelector((state) => state.doors);
 
     const handleContinue = () => {
-        dispatch(setGameState("game"));
+        dispatch(startGame(doors.length));
     };
 
     const winDoor = gameState === "game" ? false : selected === correct ? true : false;

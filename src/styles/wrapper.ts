@@ -7,4 +7,5 @@ export default styled.div`
     align-items: center;
     flex-direction: column;
     background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%), no-repeat;
+    background-size: cover;
 `;

@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { setStats } from "./actions";
+import { changeDoor } from "../doors/actions";
 
 type statsElement = {
     count: number;
@@ -26,8 +26,8 @@ const initialState: stats = {
 };
 
 const statsReducer = createReducer(initialState, (builder) => {
-    builder.addCase(setStats, (state, action) => {
-        return action.payload;
+    builder.addCase(changeDoor, (state, action) => {
+        return action.payload.stats;
     });
 });
 

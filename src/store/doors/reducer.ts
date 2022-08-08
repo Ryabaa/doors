@@ -1,5 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { setCorrect, setSelected } from "./actions";
+import { startGame } from "../gameState/actions";
+import { changeDoor, clickDoor } from "./actions";
+
+import getRandomNumber from "../../utils/getRandomNumber";
 
 type doors = {
     numbers: number[];
@@ -15,11 +18,14 @@ const initialState: doors = {
 
 const gameStateReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(setSelected, (state, action) => {
+        .addCase(clickDoor, (state, action) => {
             state.selected = action.payload;
         })
-        .addCase(setCorrect, (state, action) => {
-            state.correct = action.payload;
+        .addCase(changeDoor, (state, action) => {
+            state.selected = action.payload.selected;
+        })
+        .addCase(startGame, (state, action) => {
+            state.correct = getRandomNumber(action.payload);
         });
 });
 

@@ -1,11 +1,17 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { setGameState } from "./actions";
+import { endGame, startGame, suggestChange } from "./actions";
 
 const initialState: string = "intro";
 
 const gameStateReducer = createReducer(initialState, (builder) => {
-    builder.addCase(setGameState, (state, action) => {
-        return action.payload;
+    builder.addCase(startGame, (state, action) => {
+        return "game";
+    });
+    builder.addCase(suggestChange, (state, action) => {
+        return "suggestion";
+    });
+    builder.addCase(endGame, (state, action) => {
+        return "end";
     });
 });
 
