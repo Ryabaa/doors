@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/2048-Game/static/js/main.6e55f9e6.js",
+    "index.html": "/2048-Game/index.html",
+    "main.6e55f9e6.js.map": "/2048-Game/static/js/main.6e55f9e6.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.6e55f9e6.js"
+  ]
+}
