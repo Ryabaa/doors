@@ -10,6 +10,8 @@ import Game from "./components/Game";
 import Suggestion from "./components/Suggestion";
 import End from "./components/End";
 import Stats from "./components/Stats";
+import Auto from "./components/Auto";
+import Info from "./styles/info";
 
 const App: React.FC = () => {
     const gameState = useAppSelector((state) => state.gameState);
@@ -18,7 +20,12 @@ const App: React.FC = () => {
         <>
             <GlobalStyles />
             <Wrapper>
-                {gameState !== "intro" && <Stats />}
+                {gameState !== "intro" && (
+                    <Info>
+                        <Stats />
+                        <Auto />
+                    </Info>
+                )}
                 {gameState === "intro" && <Intro />}
                 {gameState === "game" && <Game />}
                 {gameState === "suggestion" && <Suggestion />}
