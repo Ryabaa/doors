@@ -20,7 +20,7 @@ const Game: React.FC = () => {
                 const randomNumber = getRandomNumber(doors.length);
                 dispatch(clickDoor(randomNumber));
                 dispatch(suggestChange());
-            }, 5000);
+            }, 500);
             return () => clearTimeout(timeout);
         }
     }, [active]);

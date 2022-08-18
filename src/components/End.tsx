@@ -27,7 +27,7 @@ const Modal: React.FC = () => {
         if (active) {
             const timeout = setTimeout(() => {
                 handleContinue();
-            }, 5000);
+            }, 500);
             return () => clearTimeout(timeout);
         }
     }, [active]);
