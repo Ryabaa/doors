@@ -13,21 +13,28 @@ interface IDoorProps {
 const Door: React.FC<IDoorProps> = ({ number }) => {
     const dispatch = useAppDispatch();
     const gameState = useAppSelector((state) => state.gameState);
+    const { active } = useAppSelector((state) => state.auto);
     const { correct, selected } = useAppSelector((state) => state.doors);
+
     const text = number === correct ? "win" : "death";
+    const doorContent = gameState === "game" ? number : text;
+    const doorClicked = gameState === "game" ? true : false;
+    const correctDoor = gameState !== "game" && correct === number;
+    const selectedDoor = gameState !== "game" && selected === number;
+    const autoSelectedDoor = gameState === "game" && active && selected === number;
 
     const handleSelectDoor = () => {
         dispatch(clickDoor(number));
         dispatch(suggestChange());
     };
 
-    const doorClicked = gameState === "game" ? true : false;
-    const correctDoor = gameState === "game" ? false : correct === number ? true : false;
-    const selectedDoor = gameState === "game" ? false : selected === number ? true : false;
-    const doorContent = gameState === "game" ? number : text;
-
     return (
-        <StyledDoor onClick={doorClicked ? handleSelectDoor : () => {}} clicked={doorClicked} correct={correctDoor} selected={selectedDoor}>
+        <StyledDoor
+            disabled={active}
+            onClick={doorClicked ? handleSelectDoor : () => {}}
+            clicked={doorClicked}
+            correct={correctDoor}
+            selected={autoSelectedDoor || selectedDoor}>
             {doorContent}
         </StyledDoor>
     );

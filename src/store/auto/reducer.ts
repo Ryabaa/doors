@@ -1,14 +1,14 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { amountDecrement, inputChange, toggleActive, toggleInactive } from "./actions";
+import { timeDecrement, inputChange, toggleActive, toggleInactive } from "./actions";
 
 type auto = {
-    amount: number;
+    time: number;
     active: boolean;
     disabled: boolean;
 };
 
 const initialState: auto = {
-    amount: 0,
+    time: 0,
     active: false,
     disabled: true,
 };
@@ -21,11 +21,11 @@ const gameStateReducer = createReducer(initialState, (builder) => {
             } else {
                 state.disabled = true;
             }
-            state.amount = action.payload;
+            state.time = action.payload;
         })
-        .addCase(amountDecrement, (state, action) => {
-            if (state.amount) {
-                state.amount -= 1;
+        .addCase(timeDecrement, (state, action) => {
+            if (state.time) {
+                state.time -= 1;
             }
         })
         .addCase(toggleActive, (state, action) => {

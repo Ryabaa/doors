@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import Toggle from "react-toggle";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { amountDecrement, inputChange, toggleActive, toggleInactive } from "../store/auto/actions";
+import { timeDecrement, inputChange, toggleActive, toggleInactive } from "../store/auto/actions";
 
 import "react-toggle/style.css";
 
 const Auto: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { amount, active, disabled } = useAppSelector((state) => state.auto);
+    const { time, active, disabled } = useAppSelector((state) => state.auto);
 
     const handleToggleAuto = () => {
         if (active) {
@@ -25,19 +25,17 @@ const Auto: React.FC = () => {
     useEffect(() => {
         if (active) {
             const decrementInterval = setInterval(() => {
-                dispatch(amountDecrement());
+                dispatch(timeDecrement());
             }, 1000);
-            return () => {
-                clearInterval(decrementInterval);
-            };
+            return () => clearInterval(decrementInterval);
         }
     }, [active]);
 
     useEffect(() => {
-        if (amount === 0) {
+        if (time === 0) {
             dispatch(toggleInactive());
         }
-    }, [amount]);
+    }, [time]);
 
     return (
         <div datatype="container">
@@ -46,14 +44,8 @@ const Auto: React.FC = () => {
                 <Toggle checked={active} disabled={disabled} icons={false} onChange={handleToggleAuto} />
             </label>
             <label>
-                <span>Amount :</span>
-                <input
-                    type="number"
-                    readOnly={active}
-                    placeholder="number"
-                    onChange={handleInputChange}
-                    value={amount !== 0 ? amount : ""}
-                />
+                <span>Time :</span>
+                <input type="number" readOnly={active} placeholder="seconds" onChange={handleInputChange} value={time !== 0 ? time : ""} />
             </label>
         </div>
     );

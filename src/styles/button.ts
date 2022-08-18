@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export default styled.button`
+interface IButton {
+    active: boolean;
+}
+
+export default styled.button<IButton>`
+    border: 3px solid ${(props) => (props.active ? "#fff" : "unset")};
     display: flex;
     justify-content: center;
     align-items: center;

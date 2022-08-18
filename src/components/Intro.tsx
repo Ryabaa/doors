@@ -18,7 +18,9 @@ const Intro: React.FC = () => {
         <Container background={true} direction={"column"}>
             <p>3 Doors</p>
             <p>This game tests mathematical paradox</p>
-            <Button onClick={handleStart}>Start</Button>
+            <Button active={false} onClick={handleStart}>
+                Start
+            </Button>
         </Container>
     );
 };

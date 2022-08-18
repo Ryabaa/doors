@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { startGame } from "../store/gameState/actions";
@@ -14,13 +14,23 @@ const Modal: React.FC = () => {
     const gameState = useAppSelector((state) => state.gameState);
     const doors = useAppSelector((state) => state.doors.numbers);
     const { correct, selected } = useAppSelector((state) => state.doors);
+    const { active } = useAppSelector((state) => state.auto);
+
+    const winDoor = gameState === "game" ? false : selected === correct ? true : false;
+    const text = doors[selected! - 1] === correct ? "win" : "death";
 
     const handleContinue = () => {
         dispatch(startGame(doors.length));
     };
 
-    const winDoor = gameState === "game" ? false : selected === correct ? true : false;
-    const text = doors[selected! - 1] === correct ? "win" : "death";
+    useEffect(() => {
+        if (active) {
+            const timeout = setTimeout(() => {
+                handleContinue();
+            }, 5000);
+            return () => clearTimeout(timeout);
+        }
+    }, [active]);
 
     return (
         <Container background={false} direction={"column"}>
@@ -30,7 +40,9 @@ const Modal: React.FC = () => {
                     <Door key={doorIndex} number={number} />
                 ))}
             </Container>
-            <Button onClick={handleContinue}>Continue</Button>
+            <Button active={false} disabled={active} onClick={handleContinue}>
+                Continue
+            </Button>
         </Container>
     );
 };
