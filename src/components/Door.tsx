@@ -21,7 +21,6 @@ const Door: React.FC<IDoorProps> = ({ number }) => {
     const doorClicked = gameState === "game" ? true : false;
     const correctDoor = gameState !== "game" && correct === number;
     const selectedDoor = gameState !== "game" && selected === number;
-    const autoSelectedDoor = gameState === "game" && active && selected === number;
 
     const handleSelectDoor = () => {
         dispatch(clickDoor(number));
@@ -34,7 +33,7 @@ const Door: React.FC<IDoorProps> = ({ number }) => {
             onClick={doorClicked ? handleSelectDoor : () => {}}
             clicked={doorClicked}
             correct={correctDoor}
-            selected={autoSelectedDoor || selectedDoor}>
+            selected={selectedDoor}>
             {doorContent}
         </StyledDoor>
     );

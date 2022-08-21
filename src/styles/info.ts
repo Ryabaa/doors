@@ -12,7 +12,7 @@ export default styled.div`
         color: #fff;
         font-size: 24px;
         padding: 20px;
-        width: 200px;
+        width: 220px;
         border-radius: 20px;
         row-gap: 10px;
         display: flex;

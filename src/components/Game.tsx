@@ -12,15 +12,16 @@ import Door from "./Door";
 const Game: React.FC = () => {
     const dispatch = useAppDispatch();
     const doors = useAppSelector((state) => state.doors.numbers);
-    const { active } = useAppSelector((state) => state.auto);
+    const { interval, active } = useAppSelector((state) => state.auto);
 
     useEffect(() => {
         if (active) {
             const timeout = setTimeout(() => {
                 const randomNumber = getRandomNumber(doors.length);
+                console.log(randomNumber);
                 dispatch(clickDoor(randomNumber));
                 dispatch(suggestChange());
-            }, 500);
+            }, interval);
             return () => clearTimeout(timeout);
         }
     }, [active]);

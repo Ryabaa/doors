@@ -15,7 +15,7 @@ const Modal: React.FC = () => {
     const stats = useAppSelector((state) => state.stats);
     const doors = useAppSelector((state) => state.doors.numbers);
     const { selected, correct } = useAppSelector((state) => state.doors);
-    const { time, active } = useAppSelector((state) => state.auto);
+    const { time, interval, active } = useAppSelector((state) => state.auto);
     const [autoChoice, setAutoChoice] = useState(isEven(time));
     const [shuffleDoors, setShuffleDoors] = useState(shuffleArray([...doors]));
     const deathDoor = shuffleDoors.find((number) => number !== selected && number !== correct);
@@ -39,7 +39,7 @@ const Modal: React.FC = () => {
         if (active) {
             const timeout = setTimeout(() => {
                 handleChangeDoor(autoChoice);
-            }, 500);
+            }, interval);
             return () => clearTimeout(timeout);
         }
     }, [active]);

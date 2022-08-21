@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import Toggle from "react-toggle";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { timeDecrement, inputChange, toggleActive, toggleInactive } from "../store/auto/actions";
+import { timeDecrement, timeChange, intervalChange, toggleActive, toggleInactive } from "../store/auto/actions";
 
 import "react-toggle/style.css";
 
 const Auto: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { time, active, disabled } = useAppSelector((state) => state.auto);
+    const { time, interval, active, disabled } = useAppSelector((state) => state.auto);
 
     const handleToggleAuto = () => {
         if (active) {
@@ -18,8 +18,12 @@ const Auto: React.FC = () => {
         }
     };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(inputChange(Number(event.target.value)));
+    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(timeChange(Number(event.target.value)));
+    };
+
+    const handleIntervalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(intervalChange(Number(event.target.value)));
     };
 
     useEffect(() => {
@@ -44,8 +48,18 @@ const Auto: React.FC = () => {
                 <Toggle checked={active} disabled={disabled} icons={false} onChange={handleToggleAuto} />
             </label>
             <label>
-                <span>Time :</span>
-                <input type="number" readOnly={active} placeholder="seconds" onChange={handleInputChange} value={time !== 0 ? time : ""} />
+                <span>Time | s :</span>
+                <input type="number" readOnly={active} placeholder="value" onChange={handleTimeChange} value={time !== 0 ? time : ""} />
+            </label>
+            <label>
+                <span>Interval | ms :</span>
+                <input
+                    type="number"
+                    readOnly={active}
+                    placeholder="value"
+                    onChange={handleIntervalChange}
+                    value={interval !== 0 ? interval : ""}
+                />
             </label>
         </div>
     );

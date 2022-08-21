@@ -14,7 +14,7 @@ const Modal: React.FC = () => {
     const gameState = useAppSelector((state) => state.gameState);
     const doors = useAppSelector((state) => state.doors.numbers);
     const { correct, selected } = useAppSelector((state) => state.doors);
-    const { active } = useAppSelector((state) => state.auto);
+    const { interval, active } = useAppSelector((state) => state.auto);
 
     const winDoor = gameState === "game" ? false : selected === correct ? true : false;
     const text = doors[selected! - 1] === correct ? "win" : "death";
@@ -27,7 +27,7 @@ const Modal: React.FC = () => {
         if (active) {
             const timeout = setTimeout(() => {
                 handleContinue();
-            }, 500);
+            }, interval);
             return () => clearTimeout(timeout);
         }
     }, [active]);
